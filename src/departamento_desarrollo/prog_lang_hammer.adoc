@@ -1,0 +1,48 @@
+= El martillo en Informática
+
+// compile: asciidoctor -a source-highlighter=highlightjs  -o __builds/prog_lang_hammer.html 
+
+
+
+En la siguiente página, proponen una comparativa de "herramientas" valorando puntos fuertes y débiles en una lista de características predeterminadas.
+
+http://hammerprinciple.com/
+
+La siguiente sección, es para lenguajes de programación.
+
+http://hammerprinciple.com/therighttool
+
+
+Las valoraciones, se obtienen de por votación de quien quiera aportar.
+
+La idea es muy buena, y el resultado es interesante.
+
+
+Que haya preguntas positivas y negativas, crea un poco de confusión.
+
+Esto hace que la columna _lo hace bien_ no es equivalente a _puntos fuertes_
+
+
+En C++ por ejemplo, está en la columna *"lo hace bien"*:
+
+[quote]
+This language makes it easy to shoot yourself in the foot
+
+[quote]
+There is a lot of accidental complexity when writing code in this language
+
+[quote]
+I often feel like I am not smart enough to write this language
+
+[quote]
+Writing code in this language is a lot of work
+
+Que evidentemente no es positivo.
+
+Por otro lado, tendríamos la doble negación (que crea un poco de confusión) en un lenguaje que decimos _no hace bien_ algo que es malo. Es decir, que es positivo.
+
+
+
+******** 
+http://departamentodesarrollo.blogspot.com.es/2013/08/si-solo-tienes-un-martillo-todo-te.html
+********

@@ -1,0 +1,153 @@
+= ¿Qué opinas de los Threads?
+
+ 
+To thread or not to thread…
+ 
+ 
+And the winner is… NO.
+Pero sólo para empezar. “NO” es una palabrita muy suave, muy flojita, breve, pequeña, insignificante en ocasiones. La respuesta se merece un poco más de atención, un poco más de elocuencia y contundencia que un simple, raquítico y triste “NO”.
+ 
+Trataré de completar un poco la respuesta.
+ 
+ 
+Este NO, no significa un rechazo a la concurrencia o al paralelismo (está de moda decir que concurrencia no es paralelismo, pero creo que con concurrencia nos entenderemos lo suficiente).
+Espero poder dejar eso claro en la siguiente explicación.
+ 
+ 
+En el origen de los tiempos, los sistemas ejecutaban una cosa, y bastante merito tenían (algunos).
+ 
+Hacer varias cosas simultáneamente fue una gran idea y una gran necesidad.
+Algunos optaron por multitarea cooperativa y otros radicales, por multitarea apropiativa a preventiva.
+ 
+Y los SO empezaron a hacerlo bien. Tenemos procesos que se pueden ejecutar aparentemente de forma simultánea. Lo importante no era que se ejecutaran simultáneamente, lo importante era que lo pareciera (a diferencia de la mujer del César).
+ 
+¿Y por qué las apariencias importan tanto? ¿Desde cuándo? ¿No es eso un timo?
+ 
+No es un timo, no sólo eso, era una gran necesidad, porque pareciendo que se ejecutaban simultáneamente se conseguía la tan deseada NO COOPERACIÓN.
+ 
+Y esa es la clave. NO ME FÍO, NO TE FÍES, NO SE FÍA. Nuestro queridísimo y amado SO nos protege del resto del mundo, una amplia fauna de alimañas, programadores, e incluso zombis. Nuestro SO es la gran madre protectora y hace su trabajo muy bien.
+ 
+Repito, en la concurrencia preventiva o apropiativa, la sensación de ejecución simultánea se inventó para proteger, para tener seguridad…
+ 
+ 
+Pero a algunos les pareció buena idea modelar problemas de forma concurrente. Y es que es una gran idea. Porque mientras unos pocos convencían a casi todos de que el mundo está orientado a objetos, la realidad es que el mundo es concurrente (y no sólo a nivel cuántico).
+ 
+Y alguien pensó…
+¿No ha funcionado bien en los procesos de los SO? ¿Por qué parar ahí? ¿Por qué no darle al pobrecito programador herramientas para modelar el mundo tal como es, concurrente?
+Entonces, demos herramientas de trabajo concurrente a los programadores para que modelen soluciones del mundo real.
+Qué bueno.
+ 
+Y fue que había dos opciones. Y fue que se cogió la incorrecta (cuestión de rendimiento).
+Así que se pervirtieron las ideas originales de la concurrencia y se le dieron a los programadores Threads, mutex, semáforos, regiones críticas y otras armas.
+ 
+“Estas herramientas y leyes os doy”
+
+ 
+A los programadores se les enseñó técnicas de supervivencia en ese nuevo mundo.
+Se les dijo que con esas armas y las técnicas, se podía sobrevivir, incluso se podría vivir muyyyy bien. Y muchos lo creímos.
+ 
+Y muchos tenemos grabadas enormes cicatrices tras luchar para ganar, terminando arrodillados para sobrevivir. Fueron meses, años en ocasiones en ese ecosistema hostil (ríete tú de Pandora en Avatar).
+ 
+Y ya hemos aprendido, ya lo han explicado unos cuantos gurús, ya lo dice mucha gente, ya no eres raro si te atreves a decir… “LA CONCURRENCIA CON MEMORIA COMPARTIDA ES UNA BATALLA QUE NO PUEDES GANAR, NO PUEDES EMPATAR Y NO PUEDES NO JUGAR”
+ 
+Thread, mutex, semáforos, regiones críticas, etc… son una ilusión, un engaño, una trampa mortal.
+ 
+ 
+Sí, el mundo es concurrente, pero los Threads y acompañantes no son armas, son virus letales que te provocarán una lenta, dolorosa y larga muerte. Son el diablo, el infierno, la tortura eterna.
+ 
+No sé si logro explicarme con claridad, no sé si logro transmitir que los Threads no son buena idea. Lo estoy intentando.
+ 
+ 
+Alan Cox, uno de los gurús del kernel del Linux también lo dijo muy claramente cuando insistían en procesos ligeros (equivalentes a threads).
+“Computer is a state machine. Threads are for people who can’t program state machines”
+ 
+Pero aún más claro lo dijeron Martin Ordesky, Jonas Bonner, Kachayev, Joe Amstrong y tantos otros...
+ 
+ 
+Y dijo Herbert Schildt…     **“The free lunch is over”**. +
+http://www.gotw.ca/publications/concurrency-ddj.htm[aquí] y http://en.wikipedia.org/wiki/Herb_Sutter[aquí]
+ 
+Y lo confirmaron muchos otros profetas.
+Cundió el pánico, todos los programadores corriendo como pollo sin cabeza, asustados, buscando refugio y la salvación.
+ 
+Y fue que el diablo los tentó. No tengas miedo, aquí tienes unos threads, mutex, y demás.  Es fácil, úsalos, disfruta.
+El poder del lado tenebroso es fuerte y seductor… el camino inicial es fácil y agradable.
+ 
+ 
+¿Los threads son tan malos? ¿Cómo es posible?
+¿SI EL MUNDO ES CONCURRENTE, NO DEBERÍAMOS TENER HERRAMIENTAS DE CONCURRENCIA PARA MODELARLO?
+ 
+Claro que sí, y las tenemos, y las teníamos, y funcionaban bien, y no eran threads.
+ 
+Los procesos de los SO apropiativos. ¿Recuerdas?
+El objetivo no era modelar el mundo real, el objetivo no era la concurrencia, el objetivo era montar un sistema de protección, seguridad, tranquilidad… pero es multitarea, es concurrente, es bueno.
+Y además, sobreviven al “the free lunch is over”.
+ 
+Pero claro, eso es caro, es muy caro, no es viable.
+El mundo tiene muchos actores, pero un SO sólo puede con un puñadito de procesos.
+ 
+La solución… las hebras. Pero vaya, tampoco son tan baratas, así que ¿inventamos las fibras?.
+Volved al infierno. Vaya timo, timo y retimo. No sólo vamos en la dirección equivocada. Además nos hacen creer que es por economía, que es más barato.
+ 
+La realidad, para quien quiera abrir los ojos, es evidente, no hay una diferencia de precio relevante. “Úsalo, es barato…” susurraba el diablo.
+ 
+ 
+Pero hace mucho tiempo, en esta misma galaxia, varios grupos de rebeldes luchaban contra el lado oscuro y las tentaciones diabólicas.
+ 
+Vivieron seguros, pero escondidos acosados por el imperio del mal…
+ 
+Y fue que llegó la crisis al imperio del mal. “The free lunch is over”, “The free lunch is over”, recuerda.
+Ya no se podía ocultar, la burbuja explotó.
+ 
+Casi todos buscando soluciones con histeria. Unos pocos pudieron mantener la calma, no se habían dejado seducir, lo habían estado haciendo bien durante la época oscura… La base para el renacimiento.
+ 
+ 
+Los threads son necesarios sí, pero en muy bajo nivel. Es algo que no debemos ver ni tocar cuando no trabajamos a muy, muy bajo nivel. Como los registos del micro o los sectores del disco duro.
+¿Acaso para escribir un fichero programarás el movimiento de los cabezales del disco duro?
+ 
+Si no programas a muy bajo nivel (un sistema operativo, un microcontrolador…) los threads no son para ti.
+ 
+ 
+En estos años de pánico desde que se descubrió el pastel, nacieron nuevos héroes con el fin de luchar y dar esperanza, de vencer al “the free lunch is over”…
+ 
+* Rust
+* Go
+* F#
+* Elixir
+* Node.js
+* Scala
+* Akka
+* Python3
+* Programación reactiva
+* …
+ 
+Nuevas herramientas para una nueva época.
+Mejores o peores soluciones, pero al menos con la lección aprendida, rompiendo nuestras cadenas y dándonos libertad.
+LIBRE de threads y amigotes (o al menos, con herramientas útiles alternativas y una clara recomendación de no mirar a la cara de los Threads)
+ 
+Y algunos rebeldes murieron en el olvido, pero otros, sobrevivieron y ganan fuerza cada día que pasa (Erlang).
+ 
+ 
+QUE SUERTE TENEMOS EN VIVIR LA ERA POST THREADS, que suerte de estar al final de la época oscura, el nuevo renacimiento.
+ 
+ 
+ 
+Espero poder haber respondido con un poco de claridad a la pregunta ¿qué opinas de los threads?
+
+Y es obligada una reflexión breve sobre Erlang.
+
+La VM de Erlang, buscaba la seguridad, la tolerancia a fallos, la disponibilidad continua.
+
+Con esta máquina, arte y buen hardware, han conseguido 9 nueves de fiabilidad... impresionante.
+
+¿El modelo? El correcto. Concurrencia, aislamiento, nada de compartir memoria, paso de mensajes...
+
+Evidentemente, este también es el camino para superar el "the free lunch is over".
+
+Un antiguo programa en Erlang, sin ningún cambio, muy previo al "the free lunch is over", hoy se ejecutará de maravilla, y dentro de muchos años también.
+La máquina virtual (que hicieron smp para ello no hace tanto) se encargará de todo.
+
+No tienes que pensar cómo hacerlo. La forma correcta es la sencilla.
+
+Crea muchos procesos (como en el mundo real) y deja que la Erlang VM los distribuya.
+

@@ -1,0 +1,174 @@
+= Docker
+
+:docker: https://www.docker.io/[docker]
+:lxc: https://linuxcontainers.org/[lxc]
+
+
+
+
+
+* Documentación, tutoriales, contenedores públicos...  {docker}
+    
+* Docker utiliza {lxc} por debajo
+
+* {lxc} es un chroot con esteroides
+
+
+
+
+
+== Virtualización, pero menos
+
+Un contenedor es un sistema virtual, pero no es una virtualización completa. No es una máquina virtualizada.
+
+Un contenedor te permite tener una configuración de un SO completo e independiente del host.
+
+Puedes tener tantos contenedores como quieras.
+
+
+[NOTE]
+Gran parte de las piezas de un sistema operativo están virtualizadas (memoria, disco, tarjeta de red...)
+
+    * No virtualiza...
+    
+        ** No se virtualiza el micro, ni la bios, ni el adaptador gráfico, ni el OS completo...
+        ** No requiere hipervisor y el soporte de virtualización por hardware, no aporta nada
+        ** Se ejecuta el mismo kernel
+        ** No se secuestra (perdón, se reserva) la memoria
+        
+    * Sí virtualiza...
+    
+        ** De libc hacia arriba
+        ** Tarjeta de red
+        ** Disco (o sistema de ficheros)
++        
+[NOTE]
+Aunque la tarjeta de red y el disco estén virtualizados en el OS, {lxc} les añade un nivel adicional de virtualización
+
+
+
+== Limitaciones
+
+    * Virtualiza sólo sistemas Linux
+    * No virtualiza el adaptador gráfico
+        ** Puedes instalar y acceder a aplicaciones gráficas, pero hay que hacerlo con el mismo procedimiento que si accedieras a otra máquina (+x/ssh+ o +vnc+)
+
+
+
+== ¿Para qué?
+
+    * Instalar aplicaciones de forma fácil
+        ** +apt-get+ y similares, permiten instalar de forma trivival el software, pero quizá la versión que quieras, tengas que compilarla.
+        ** Quizá sólo quieras probar algún programa o configuración y no quieras cargar con todas las dependencias
+
+    * Puedes querer tener más de una versión para probar
+
+    * Mover una configuración completa de un SO de una máquina a otra
+    
+    * Si reinstalas el OS, se borran tus programas y dependencias de aplicaciones.
+        Tus contenedores generados y mantenidos por +docker+ son ficheros.
+
+
+
+== Prueba sencilla
+
+La documentación y tutoriales en {docker} es muy buena, pero puedes hacer una prueba sencilla con el siguiente guión antes de entrar en detalles.
+
+[NOTE]
+En estos ejemplos utilizaré nombres, pero también se puede utilizar el código numérico +uuid+
+
+
+    * Instalar {docker} es sencillo siguiendo las instrucciones de su web.    
+    
+    * Ver comandos +docker+ con una breve descripción
++
+-------
+sudo docker
+-------
+
+    * Buscar imagen de http://elixir-lang.org/[elixir]
++
+-------
+sudo docker search elixir
+-------
+
+    * Descargar imagen de elixir
++
+-------
+sudo docker pull garage/elixir
+-------
+
+    * Ver imágenes instaladas
++
+-------
+sudo docker images
+-------
+
+    * Crear un contenedor con una imagen concreta y ejecutar una consola
++
+[NOTE]
+Todo es una línea
++
+-------
+sudo docker run --name elixir -t -i -v /home/maiquel/docker_vol/elixir/:/home/garage/host:rw garage/elixir bash
+-------
+        ** Ejecuta una consola interactiva
+        ** El directorio +/home/maiquel/docker_vol/elixir/+ del host estará accesible en +/home/garage/host+ del contenedor
+        ** A este contenedor le hemos llamado +elixir+. Nos podremos referir al mismo por su nombre
+        ** Si cerramos la consola interactiva +exit+, no habrá procesos en ejecución y el contenedor pasará a +stopped+
+
+    * Arrancar un contenedor existente, en este caso por nombre, +elixir+
++
+-------
+sudo docker start elixir
+-------
+
+    * Conectar a un contenedor existente que está en ejecución, en este caso por nombre, +elixir+
++
+-------
+sudo docker attach elixir
+-------
+
+
+    * Parar un contenedor
++
+-------
+sudo docker stop elixir
+-------
+        ** Esto para todos los proceso del contenedor
+        ** Cuando se paran todos los procesos de un contenedor, el contenedor se para
+        
+
+
+    * Borrar un contenedor
++
+-------
+sudo docker rm elixir
+-------
+
+    * Borrar una imagen
++
+-------
+sudo docker rmi garage/elixir
+-------
+
+
+
+== Recursos
+
+    * Utiliza +COW+ para reducir consumo de memoria y disco, pero esto tiene su coste en +CPU+ y accesos a disco
+
+
+
+== Ventajas vs máquina virtual
+
+    * Menor consumo de recursos
+    
+    * Arranca de forma inmediata (quizá añada una décima de segundo al arranque normal de un proceso)
+    
+    
+== Inconvenientes
+
+    * Linux -> Linux
+    
+    * No virtualiza el adaptador gráfico 
