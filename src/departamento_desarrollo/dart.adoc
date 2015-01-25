@@ -1,0 +1,193 @@
+= Aplicaciones web con DART
+
+
+He escrito mis primeros dos programas +cliente web+.
+
+El primer programa, una prueba de concepto sencilla... http://jleahred.github.io/apps/hello_world/index.html[link]
+
+El segundo, consiste en un puzle con la característica fundamental de que se puede configurar con
+tres topologías... http://jleahred.github.io/apps/puzzle3t/index.html[link]
+
+
+Se trataba de crear aplicaciones interactivas 100% cliente (ejecución en el navegador).
+
+
+Son pruebas de concepto escritas con el lenguaje +Dart+.
+
+
+Una vez superado este punto, ya es posible crear interfaes para aplicaciones y servicios, que seguramente
+consistirán en la entrega del programa +cliente web+ (página +html+), y esta realizará peticiones
++http+ y/o +REST+, recibiendo respuestas casi seguro +JSON+. Además de utilizar en algunos casos
++websockets+.
+
+
+Investigo con frecuencia nuevos lenguajes de programación. Muchos de estos, por lo nuevo que son
+o su orientación, no disponen de _bindigns_ con _toolkits_ gráficos tipo +Qt+, +WxWidgets+, +GTK+...
+
+Crear un servicio +http+ y/o +REST+ suele ser sencillo en todos los lenguajes.
+
+
+Además, crear interfaces web es interesante por varias razones...
+
+    * Está de moda
+    * No requiere instalación
+    * Puede publicarse y utilizarse sin dependencias
+    
+No requerir instalación también es un poco contradictorio. En ocasiones es recomendable instalar.
+¿Qué sentido tiene que te descarges todos los días el programa que vas a utilizar y que no tiene
+cambios durante largos periodos de tiempo? ¿Qué sentido tiene no poder utilizarlo si te falla la 
+conexión a internet?
+
+Una de las razones, es que cada vez es más barato y eso refuerza sus ventajas. No dependencias ni
+necesidad de instalación.
+
+Pero ejecutar en internet la parte de +backend+ no es tan trivial (Heroku, AWS y GoogleEngine son opciones, pero 
+requieren su preparación)
+    
+    
++HTML+ y +javascript+ no fueron diseñados en su origen para crear aplicaciones web, pero, ahora son
+el estándar.
+
+A +javascript+ le han salido muchas alternativas como...
+
+    * CoffeeScript
+    * Dart
+    * TypeScript
+    * CojureScript
+    * CeylonScript
+    * ScalaScript
+    * Otros compiladores que generan código +javascript+
+
+Parece que hay interés en no utilizar +javascript+ directamente.
+
+En muchos casos, proponen utilizar tu lenguaje favorito para escribir también el código del cliente web.
+
+En parte, también hay mucha gente que no se siente confortable con +javascript+ por cuestiones como...
+
+
+    * Coherción de tipos de +javascript+
+    * Diferentes modelos de OOP
+    * Evolución de lenguaje desorganizada que ha provocado que algunas "features" ahora estén "deprecadas"
+    * Errores típicos con la comparación...
++
+-----------   
+    0 > null
+    false
+     
+    0 >= null
+    true
+     
+    0 == null
+    false
+     
+    0 <= null
+    true
+     
+    0 < null
+    false
+     
+    [1] == [1]
+    false
+     
+    [1] < [2]
+    true
+     
+    [] + []
+    ""
+     
+    [] + []*3
+    "0"
+    
+    // All of these evaluate to 'true'!
+    console.log(false == '0');
+    console.log(null == undefined);
+    console.log(" \t\r\n" == 0);
+    console.log('' == 0);
+    
+    // And these do too!
+    if ({}) // ...
+    if ([]) // ...    
+-----------
+
+Pero que +javascript+ es el estándar del desarrollo web con +html+ y +css+ es indudable.
+
+Es más, +javascript+, gracias a +node.js+ está apareciendo en aplicaciones de escritorio y servidor.
+Ahora puedes escribir una aplicación web completa en el mismo lenguaje, en +javascript+.
+
+Están apareciendo librerías fantásticas en el lado del navegador y node.js
+
+Hay un gran movimiento con mucho software de calidad y libre.
+
+En muchas ocasiones, ese software está escrito en +CoffeeScript+ generando código +javascript+.
+
+Después de mirar un poco algunas alternativas, he decidido probar +Dart+ para abrirme la puerta 
+de los clientes web y el resultado ha sido muy satisfactorio.
+
+
+== Observaciones DART
+
+En Google, decidieron crear el "navegador". Para ello, una de las piezas más importantes y complejas
+era el motor y máquina virtual de +javascript+.
+
+Desarrollaron el fantástico motor +V8+ y nos contaron lo complicado que era construir una máquina
+virtual +javascript+ que fuese rápida y que gestionase decentemente la memoria.
+
+Los desarrolladores del motor +V8+, propusieron crear una nueva máquina virtual, más sencilla,
+más rápida y con mejor gestión de memoria basada en un lenguaje que pudiera reemplazar a +javascript+
+
+Así nacio +Dart+.
+
+Pero para que +Dart+ pasara de algo más que un experimento de laboratorio, debía funcionar en
+la mayoría de navegadores. Y eso sólo era posible pudiendo compilar a +javascript+
+
+El desarrollo que hicieron en Google para ello, ahora es utilizado por muchos de los "compiladores"
+a +javascript+
+
+
+Dart es un lenguaje parecido a +Java+ (más que +javascript+), y en menor medida a C#. También, como no, a 
++javascript+.
+
+Me ha sorprendido que las enumeraciones estén en fase experimental. ¿Cuántas cosas de la librería
+base no estarán correctamente modeladas por ello?
+
+Tiene recolección de basura, por tanto, los que estamos acostumbrados y amamos el patrón +RAII+ debemos
+cambiar el chip.
+
+Tiene un buen sistema para crear y gestionar eventos, incluso asíncronos. Esto está fenomenal.
+Pero estos se gestionan con referencias (punteros) y hay que ser cuidadoso con ello porque evitan
+que el recolector de basura elimine objetos que quizá tú pensabas que ya no tenían ninguna referencia.
+
+El editor, en mi máquina, ha sido muy inestable, pero no le he dedicado mucho tiempo a investigarlo.
+La máquina virtual de Java se ha limitado a decir... la culpa no es mía.
+
+La persistencia, incluso en formato +json+ debe realizarse manualmente. Supongo que tengo que
+revisar este punto en más profundidad. Quizá haya alguna librería para hacerlo automáticamente con
+reflexión de código).
+
+El editor, tiene la opción de formatear el código, pero este formato automático puede generar
+líneas muy largas.
+
+Las asignaciones son peligrosas, como en Java.
+
+Como en Java, hay valores especiales que viven en la pila y el resto en el montínculo. E igual
+que en Java, esto puede dar situaciones delicadas en el paso de parámetros.
+
+
+Tiene módudos, gestión de paquetes y dependencias que funciona muy bien y es algo siempre
+necesario.
+
+
+
+La documentación ha sido muy buena y la información en la web (+stackoverflow+ por ejemplo) excelente.
+
+El flujo de trabajo con el editor, Dartium, documentación, pruebas, generación de código... muy práctico.
+
+
+== Siguientes pasos
+
++HTML+ no compone bien, así que uno de los siguientes pasos forzados es utilizar +angular+ o +polymer+
+para solventar este problema gracias al nuevo +html5+
+
+En principio miraré +polymer+ porque tiene integración sencilla con +Dart+.
+
+Lo combinaré con algún backend en +Elixir+, +Go+, +Cpp+, +Rust+...
