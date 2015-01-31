@@ -1,0 +1,19 @@
+= Charla elixir en erlunge Madrid 2014-10
+
+En octubre de 2014, tuve la oportunidad de hablar de Elixir en una reunión Erlunge en Madrid.
+
+Las diapositivas están http://jleahred.github.io/talks/elixir-2014-10.html[aquí]
+
+Son muy pesadas y cargarlas todas toma su tiempo.
+
+El código fuente de las mismas... https://github.com/jleahred/talks/tree/master/elixir_2014-10[aquí]
+
+La experiencia fue fantástica, pero  quise abarcar demasiado.
+
+La reunión fue muy larga a pesar de tratar los temas a gran velocidad.
+
+Quise aprovechar la ocasión para tratar temas básicos y otros nada básicos que son realmente importantes para entender la aportación que puede hacer Elixir al ecosistema Erlang.
+
+En definitiva, demasiado alcance y contenido.
+
+No obstante, reitero que la experiencia fue sensacional. 
