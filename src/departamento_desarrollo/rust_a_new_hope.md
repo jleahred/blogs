@@ -42,7 +42,7 @@ En este sentido, la antigua tecnología Erlang, no tiene rival. Y menos si le po
 
 Pero C/C++, los señores de los programas importantes del mundo, juegan en otra liga. La liga del rendimiento, consumir poco, ocupar poco...
 
-Para ello, se sirven de la compilación nativa, tipado estático (sí, el tipado estático es una cuestión de rendimiento, no de corrección, veáse "homeostais del riesgo"), NO al recolector de basura, no a máquinas virtuales, runtimes ligeros...
+Para ello, se sirven de la compilación nativa, tipado estático (sí, el tipado estático es una cuestión de rendimiento, no de corrección, veáse "homeostais del riesgo"), NO al recolector de basura, no a máquinas virtuales, runtime ligeros...
 
 Las piezas complejas e importantes del software están escritas en C y C++. O al menos sus corazones. Linux, MacOS, Windows kernel, Git, Postgresql, MongoDB, MySQL/MaríaDB, firebird, MicrosoftSQL, Sybase, Oracle, LibreOffice, Excel, Word, Firefox, Chrome, Webkit, V8, Spyder, Python, Ruby, la máquina virtual de Java, la máquina virtual de .NET...
 
@@ -54,14 +54,18 @@ Sí, C y C++, son peligrosos. Además C++ es muy complejo. Por eso, es fácil qu
 
 Si eres mediocre en C++, no intentes hacer algo no trivial en producción. El fracaso está garantizado. Por eso otras tecnologías como VisualBasic, Delphi, Java, .NET... se hicieron populares rápidamente.
 
-Pero el tiempo nos ha demostrado, que incluso el software importante de grandes corporaciones, mucho dinero y buenos informáticos, falla.
+Tiene que haber herramientas para la mayoría, y la mayoría no son genios.
+
+Pero el tiempo nos ha demostrado, que incluso el software importante de grandes corporaciones, mucho dinero y buenos programadores, falla.
 
 
 ## Seguridad
 
 Ojalá los fallos se limitaran a que los programas exploten de vez en cuando. Sería triste, es triste, pero no peligroso.
 
-La costumbre nos hace creer que una explosión expontánea sin razón, de un programa o sistema, porque en un determinado y oculto punto del mismo se hace una estadística interna sólo útil para el programador, si es que algún día lo consulta, ES UNA VERGÜENZA.
+La costumbre nos hace creer que una explosión expontánea sin razón, de un programa o sistema, es normal.
+
+En ocasiones, es porque en un determinado y oculto punto del mismo se hace una estadística interna sólo útil para el programador, si es que algún día lo consulta, VERGONZOSO.
 
 Sólo Erlang/Elixir parecen haberse preocupado en serio de este punto.
 
@@ -86,9 +90,9 @@ Si la seguridad, la estabilidad, la disponibilidad... son tus prioridades, Erlan
 
 C y C++ han dejado grandes huecos que han dado oportunidades a otros lenguajes. Algunos de ellos han tenido un éxito considerable.
 
-Como comenté más adelante, VisualBasic, Java y .NET, son lenguajes empujados por grandes empresas que han aprovechado la complejidad de C++ para implantarse con gran éxito.
+Como comenté más adelante, VisualBasic, Java y .NET, son lenguajes empujados por grandes empresas que han aprovechado la complejidad de C++ para implantarse con gran éxito (para una gran mayoría).
 
-Pero al hacerlo, crearon otra liga de competición en la que C++ siguió siendo el rey.
+Pero al hacerlo, crearon otra liga de competición.
 
 C++ en los últimos años (C++11, C++14 y el próximo C++17) está sufriendo una revolución importante. Es un nuevo lenguaje de programación. Mucho más moderno.
 
@@ -114,7 +118,7 @@ Escribí hace años una librería de utilidades en C++. El objetivo era tener el
 
 En dicha librería, también me preocupé por hacer software seguro, que no explotara sin dar muchas pistas gracias, es decir, eliminar el "undefine behaviour".
 
-Esto último tiene su coste, coste que pago muy gustosamente. Esta idea, no sólo me permite programar más eficazmente, también permite que otros programadores con menos experiencia aprendan y sobrevivan muy bien con C++.
+Esto último tiene su coste, coste que pago muy gustosamente. Esta idea, no sólo me permite programar más eficazmente, también permite que otros programadores con menos experiencia aprendan y sobrevivan muy bien con C++ (no pienses sólo en ti, en ocasiones es bueno pensar en la mayoría, o al menos en más).
 
 El balance ha sido extraordinario. Desarrollo eficiente de código que no explota y da pistas para su corrección.
 
@@ -181,9 +185,11 @@ En el ecosistema C/C++ es frecuente utilizar analizadores estáticos de código 
 
 Estas herramientas, suelen ser muy caras.
 
+Son comlejas y se ha invertido mucho tiempo en ellas. Quizá es el momento de plantearse un lenguaje de la misma que liga que esté diseñado para facilitar y realizar de forma cotidiana y de serie este labor.
+
 Rust, nos permite reducir sino eliminar casi todos esos errores.
 
-La idea no es fabricar complejísimas herramientas para ello, la idea es empezar de cero y diseñar un lenguaje que nos permita detectar y eliminar estos problemas en tiempo de compilación.
+Insisto, la idea no es fabricar complejísimas herramientas para ello, la idea es empezar de cero y diseñar un lenguaje que nos permita detectar y eliminar estos problemas en tiempo de compilación.
 
 No sabemos si Rust triunfará en este punto, la perspectiva es buena. Sí sabemos que C++ no tiene plan para ello.
 
@@ -198,6 +204,6 @@ Por el momento, *servo* (el motor web que se está escribiendo en Rust), está d
 
 Y no sólo eso, menos líneas de código.
 
-
+Todavía es pronto, tiene largo camino por recorrer.
 
 Habrá que seguirlo de cerca, es un rival con mucho potencial.
