@@ -1,0 +1,120 @@
+= C++ a toda marcha
+:source-highlighter: coderay
+
+//:source-highlighter: highlight
+//:source-highlighter: coderay
+
+Si quieres una tecnología, un lenguaje vibrante que avance a toda máquina, novedades y ritmo a tope...
+pass:[C++] es para ti.
+
+
+Se está celebrando el *cppcon 2015*
+
+Las charlas y anuncios son sorprendentes.
+
+Para los que pensábamos que que pass:[C++]11 y pass:[C++]14 eran un gran cambio, una gran evolución,
+un gran cambio de filosofía... cppcon 2015 nos muestra que eso era sólo el principio.
+
+La máquina se mueve a una velocidad trepidante y sigue acelerando...
+
+
+Una declaración de intenciones...
+
+> https://www.youtube.com/watch?v=1OEu9C51K2A
+
+
+Una muestra real que se puede tocar...
+
+> https://www.youtube.com/watch?v=hEx5DNLWGgA
+
+
+Una guía de estilo oficial, una librería que acompaña, anotaciones atómicas cuando quieras saltarlas,
+y a aprovechar las novedades con un *NUEVO* estilo, un nuevo lenguaje.
+
+Un lenguaje *seguro a tipos*, elegante, moderno, multiparadigma (como siempre) pero funcional bien integrado...
+
+[NOTE]
+Sí C++ type safe, no estás soñando
+
+Por fin una ventana para eliminar el "undefined behaviour is all arround you in pass:[C++]"
+
+Grandes noticias.
+
+Yo llevo años luchando con este undefined behaviour con librerías seguras https://github.com/jleahred/jle_cpp_tk[link] (fail fast, safe iterators,
+bound checking, etc...) y activando un par de warnings del compilador 
+
+>    -std=c++14 -O0 -g -Werror -Wall -W -Wundef -Wpointer-arith  -Wfloat-equal -fexceptions -Winit-self -Wconversion  -Wclobbered  -Wempty-body  -Wignored-qualifiers -Wmissing-field-initializers -Wsign-compare -Wtype-limits -Wuninitialized -Wno-unused-result   -Wnon-virtual-dtor -Wreorder -Woverloaded-virtual -Wsign-promo -Winit-self -Wignored-qualifiers -Wmissing-include-dirs -Wswitch-default -Wswitch-enum -Wshadow -Wcast-qual -Wwrite-strings -Wconversion -time
+
+
+
+Microsoft, de la mano de Herb Sutter ha mostrado un prototipo operativo...
+
+> https://www.youtube.com/watch?v=hEx5DNLWGgA
+
+
+¿Cuántos programadores de pass:[C++] pueden ver fácil y rápidamente el error en este código?
+
+[source,c++]
+-----------------------------
+auto i = -1;
+
+auto abs = std::max(i, -1*i);
+
+std::cout << abs << std::endl;
+-----------------------------
+
+Desgraciadamente pocos y eso es malo.
+
+El compilador y las guías de estilo nos avisarán de estos errores.
+
+Este error podría no aparecer en depuración, no aparecer durante días, semanas o meses. Seguro
+que en situaciones de estrés y concurrencia es más fácil que ocurra.
+
+
+
+
+La propuesta de meter rangos en c++ está muy avanzada y es espectacular...
+
+> https://www.youtube.com/watch?v=mFUXNMfaciE
+
+Impresionante!!!
+
+Un equivalente a +$ cal 2015+ sin bucles (no for, no while), sin condicionales, sin estado, declarativo, composición, elegante...
+
+Estos rangos, en otros lenguajes también son conocidos como listas perezosas o streams.
+
+La OOP hace tiempo que pasó de moda, ahora se lleva la programación funcional,
+cuanto más pura mejor (mónadas, monoides, teoría de clasificación… los morfismos y su composición están a la orden del día incluso en c++) ¿Quien lo habría dicho hace 5 años?
+
+
+Y esto no es todo, los módulos (el vídeo todavía no está disponible) los concepts (por fin)...
+
+Y esta otra joya de Herb Sutter propuesta para el pass:[C++]17...
+
+> http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4165.pdf
+
+*Unified CallSyntax*
+
+[source, c++]
+-------------------
+void fun(My_class& obj, int i);
+
+My_class  mc;
+mc.fun(3);
+-------------------
+
+Hay otros lenguajes de programación que lo tienen (D por ejemplo)
+
+
+Se habla de +Rust+, se habla de +Swift+, +Go+, +Nim+... pero ahora también hablaremos de +pass:[C++]+
+como uno de los lenguajes elegantes, modernos...
+
+Lejos han quedado aquellos tiempos a finales del siglo pasado y principios de este en el que
+se decía...
+
+    Si quieres colaborar con pass:[C++], si quieres aportar, si quieres sugerir cosas nuevas...
+    la mejor forma de hacerlo, es convencer a todo el mundo de que no proponga cosas nuevas.
+    C++ Ya es bastante complicado y grande, ahora se trata de que los compiladores
+    sean buenos con el estándar.
+
+Esto nos metió en el periodo oscuro, de inmovilismo... pero eso es historia.

@@ -1,0 +1,131 @@
+= Postgresql, mis razones
+
+
+Me gusta PostgreSQL...
+
+
+He utilizado bastante firebird con un resultado muy bueno (poco mantenimento, pocos problemas,
+poca administración...)
+
+firebird es una base de datos con características avanzadas, potente, rápida...
+
+Es un fork de interbase en unas condiciones "extrañas", y esta a su vez es hija de GrotonDB,
+que ha sido la base de datos pionera en la tecnología *MVCC* que ahora "todo" el mundo utiliza.
+
+
+MySQL y MaríaDB ahora no está muy mal, especialmente desde que pueden utilizar el motor innodb.
+
+No obstante, MySQL sigue validando sentencias sql que no soporta e ignorando la parte que no
+sabe tratar. También tiene una coherción de tipos poco afortunada.
+
+Le faltan algunas características importantes, pero están trabajando muy bien en otros.
+
+
+Pero he venido a hablar de PostgreSQL...
+
+
+PostgreSQL se está haciendo más popular día a día en el mundo del software libre.
+
+En parte, puede deberse a la compra de MySQL por parte de Oracle y su posterior fork con MaríaDB
+
+
+
+Aunque los rankings, como las pruebas de rendimiento hay que cogerlas con pinzas…
+ 
+http://db-engines.com/en/ranking
+ 
+ 
+Al menos en el mundo opensource, cada vez se ve más proyectos y movimientos que apuestan por postgresql.
+ 
+http://db-engines.com/en/ranking_trend/system/PostgreSQL
+ 
+ 
+En las bases de datos NoSQL orientadas a documentos, MongoDB arrasa en popularidad, aunque no es la más sofisticada
+ 
+http://db-engines.com/en/ranking/document+store
+ 
+Algunos opinan que la razón podría estar a que no obliga a utilizar map-reduce y que es sencilla
+ 
+ 
+Si miramos las bbdd clave valor, redis gana, pero tiene una cuota muy inferior a MongoDB
+ 
+http://db-engines.com/en/ranking/key-value+store
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Postgresql soporta campos de documento. Estos campos pueden estar en XML, JSON o JSONB.
+ 
+JSONB es un JSON codificado en binario para optimizar espacio y rendimiento.
+Es la misma idea de BSON, sistema utilizado en MongoDB, pero no son compatibles.
+ 
+En la siguiente url hay una comparativa de MongoDB con PostgreSQL gestionando documentos.
+ 
+http://www.enterprisedb.com/postgres-plus-edb-blog/marc-linster/postgres-outperforms-mongodb-and-ushers-new-developer-reality
+ 
+ 
+Podemos utilizar documentos accediendo a ellos con las herramientas estándar de postgresql, sentencias SQL con esteroides, transacciones, GUIs, jdbc y odbc…
+ 
+Los campos de los documentos pueden formar parte de sentencias where y select.
+ 
+Esta funcionalidad se está haciendo popular también bases de datos comerciales, grandes y caras.
+ 
+ 
+Lógicamente postgre sigue siendo transaccional y no entra en la liga de la escalabilidad con autosharding y map-reduce que elimina la transaccionalidad.
+ 
+ 
+Aquí hay una comparativa de rendimiento de varias bases de datos (como siempre, tomar con cuidado, pero es una referencia)
+ 
+http://www.diva-portal.org/smash/get/diva2:367006/fulltext01.pdf
+ 
+ 
+En la gestión de índices... 
+ 
+http://www.postgresql.org/docs/9.2/static/indexes-bitmap-scans.html
+ 
+    In all but the simplest applications, there are various combinations of indexes that might be useful, and the database developer must make trade-offs to decide which indexes to provide. Sometimes multicolumn indexes are best, but sometimes it's better to create separate indexes and rely on the index-combination feature. For example, if your workload includes a mix of queries that sometimes involve only column x, sometimes only column y, and sometimes both columns, you might choose to create two separate indexes on x and y, relying on index combination to process the queries that use both columns.
+ 
+ 
+http://www.postgresql.org/docs/9.2/static/indexes-multicolumn.html
+ 
+    Multicolumn indexes should be used sparingly. In most situations, an index on a single column is sufficient and saves space and time. Indexes with more than three columns are unlikely to be helpful unless the usage of the table is extremely stylized. See also Section 11.5 for some discussion of the merits of different index configurations.
+ 
+También hay índices parciales, que supone una diferencia radical cuando son necesarios y aplicados.
+ 
+ 
+ 
+Algunas características interesantes de postgresql
+ 
+    * Riguroso con el estándar
+    * Bases de datos OO
+    * PlSQL potente (para triggers, procedimentos almacenados, funciones)
+    * Se pueden hacer funciones y procedimeintos almacenados en otros lenguajes (python, por ejemplo)
+    * Soporta expresiones regulares (incluyendo reemplazos)
+    * Soporta consultas con PlSQL al vuelo (sin necesidad de crear procedimientos almacenados)
+    * bitmap index
+    * índices parciales
+    * Soporte de documentos
+    * La gestión de índices en tablas temporales (locales, de sesión o globales) es muy buena
+ 
+ 
+Como todas las bases de datos relacionales actuales, utiliza MVCC para control de concurrencia con diferentes estrategias configurables (aunque myisam no lo soporta, innodb sí).
+ 
+ 
+MySQL workbench es un gui extraordinario, el que viene de “serie” con postgresql (pgadminIII) es muy interesante para administrar y un uso básico,
+pero no es tan elaborado y moderno.
+
+ 
+Postgresql tiene muchas más opciones de configuración para poder afinar la base de datos. Por ejemplo, se pueden poner los índices separados de los datos (en discos duros diferentes) para aumentar el rendimento.
+ 
+Están trabajando para mejorar el full-text-search. También están planteándose el particionado automático de tablas, pero todavía hay que mantenerlo manual y no es sencillo.
+ 
+ 
+Replicación y alta disponiblidad…
+ 
+http://www.postgresql.org/docs/9.1/static/high-availability.html
+ 
+https://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling
+ 
