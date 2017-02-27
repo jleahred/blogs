@@ -16,15 +16,17 @@ Pero los compiladores son listos, muy listos y son capaces de remplazar una copi
 
 Esto es fantástico, ¡¡¡Qué más se puede pedir!!!
 
-Pues quizá sí, si el rendimento te preocupa mucho, quizá te gustaría representar en el diseño que no quieres que se copie.
+Pues quizá sí, si el rendimiento te preocupa mucho, quizá te gustaría representar en el diseño que no quieres que se copie.
 
 Está bien que el compilador en muchos casos evite la copia. Está fenomenal que el programador tenga cuidado para evitar la copia, pero... ¿No sería chulo poder representar en el diseño esto?
 
-De esta forma, evitaríasmos que por error, sea por olvido, descuido o desconocimiento, hagamos una operación que no le permita al compilador modificar in-situ y zás!!!  haga una copia cara.
+De esta forma, evitaríamos que, sea por olvido, descuido o desconocimiento, hagamos una operación que no le permita al compilador modificar in-situ y zás!!!  haga una copia cara.
 
-La mayoría de lenguajes impeativos tiene poco o nulo soporte de inmutabilidad.
+La mayoría de lenguajes imperativos tiene poco o nulo soporte de inmutabilidad.
 
-Llegamos al extremo terroríficos en los que al pasar valores a una "pseudo-función", esta puede modificárnoslos.
+Llegamos al extremo terroríficos en los que al pasar valores a una "pseudo-función", esta nos los puede cambiar.
+
+Esto convierte a toda pseudo-función invocada en sospechosa durante la investigación de un fallo.
 
 E incluso más, algunos tipos sí los puede modificar y otros no. Y muchos desarrolladores no son conscientes de ello, ni de cuándo.
 
@@ -44,7 +46,7 @@ En C++ todo funciona por copia (bueno, muy recientemente se ha añadido la semá
 
 Además la copia de un valor puede contener punteeeeerooooossss...  ya estáaaaan aquíiiiiii!!!!
 
-Pero C++ tiene una característica muy interesante casi exclusiva de los lenguajes imperativos (carecen de ella, python, ruby, java...). Puedes definir que un valor tiene que ser inmutable. Yuuuuuhuuuuu!!!
+Pero C++ tiene una característica muy interesante casi exclusiva entre los lenguajes imperativos (carecen de ella, python, ruby, java...). Puedes definir que un valor tiene que ser inmutable. Yuuuuuhuuuuu!!!
 
 En C++ puedes definir parámetros que son referencias constantes a valores. Es decir que no tienen el coste de la copia, pero no los pueden cambiar. Chúpate esa Fredy, hoy duermo tranquilo!!!
 
@@ -60,7 +62,7 @@ Pero hay otro caso a considerar. Las referencias trajeron soluciones y nuevos pr
 
 Por un lado, son punteros, "copia" barata. Pero no tienen aritmética de punteros ni pueden estar sin inicializar (no es fácil y no se hará por error).
 
-Podemos recibir parémtros por referencia, y gracias al **const** garantizamos que no se cambiarán.
+Podemos recibir parámetros por referencia, y gracias al **const** garantizamos que no se cambiarán.
 
 Esto es un patrón muy utilizado, pero...
 
@@ -116,43 +118,45 @@ Supongamos que hemos definido un tipo llamado "Expensive". Es caro copiarlo. As�
 
 Ahora creamos una instancia, que como no decimos nada, es... **INMUTABLE**
 
-```
-code
+```Rust
+let prev_exp: Expensive;
 ```
 
 **Inmutabilidad** y **no copia** de *Expensive* ¿Qué más se puede pedir?.
 
 Pues... ¿que sirva para algo?
 
-Hasta ahora tenemos un te miro pero no te toco. No era esto de lo que hablábamos inicalmente.
+Hasta ahora tenemos un te miro pero no te toco. No era esto de lo que hablábamos inicialmente.
 
 Supogamos que *Expensive* es una especie de lista, que puede ser gigante (y por eso no queremos que se pueda copiar ni por accidente ni intencionadamente). Tenemos una función *push* para añadir.
 
 ¿Añadir? Si es inmutable. Cierto, cierto, un poco de paciencia.
 
-¿Cómo era en esto de la programación funcional?
+¿Cómo sería en programación funcional?
 Sería algo así:
 
-```
-code
+```Haskell
+nw_exp = push pev_exp val
 ```
 
-Tenemos nuestro *Expensive* inmutable, llamamos a una función para añadir y esta nos devuelve otro *Expensive* que es igual pero con un elemento más. Es otro conceptualmente, aunque el compilador **si puede** evitará la copia y te venderá el mismo diciéndote, aquí tiene su nuevo *Expensive*
+Tenemos nuestro *Expensive* inmutable llamado *old_exp*, llamamos a una función para añadir y esta nos devuelve otro *Expensive* que es igual pero con un elemento más. Es otro conceptualmente, aunque el compilador **si puede** evitará la copia y te venderá el mismo diciéndote, aquí tiene su nuevo *Expensive*
 
 Y confiamos en nuestro saber, atención y buen hacer del compilador, para que lo optimice haciendo internamente mutabilidad y no copiando.
 
 Aunque se puede hacer con una notación estilo *OOP*, propongo la notación funcional (es más claro y es un detalle poco relevante).
 
-```
-code
+```Rust
+let prev_exp: Expensive;
+...
+let nw_exp = push(prev_exp, val);
 ```
 
 No podemos hacer una copia, y es **inmutable**, ¿Estamos en un callejón sin salida?
 
 Nop. Porque podemos hacer esto en la función:
 
-```
-code
+```Rust
+fn push (mut exp: Expensive, v: Value) -> Expensive
 ```
 
 Oigo desde aquí los gritos de ¡¡¡trampa, trampa!!!
@@ -179,13 +183,22 @@ Así que es... un **movimiento**
 
 Es un regalo. Ahora es tuyo, "pa ti pa siempre".
 
-¿Y no es razonable que pierdas el cotrol sobre algo que has dado (regalado o vendido)?
+Y el compilador vigila para que no haya trampas. Ni llaves ocultas, ni compartir... si ha cambiado el propietario a cambiado.
+
+¿Y no es razonable que pierdas el control sobre algo que has dado (regalado o vendido)?
 
 ¿No es razonable que el nuevo dueño haga con eso lo que quieras?
 
+```Rust
+fn push (mut exp: Expensive, v: Value) -> Expensive {
+    exp.mutate_with(value);
+    exp.last_value = v;
+    exp     // this is the return 
+}
+```
 Pues en este caso, el receptor ha decido que sea mutable. Lo muta, y **lo devuelve**, lo vuelve a dar, se deshace de ello.
 
-Con esto se consigue lo mismo que haría automáticamente un compilador de un programa funcional al optmizar, pero hay algo más.
+Con esto se consigue lo mismo que haría automáticamente un compilador de un programa funcional al optimizar, pero hay algo más.
 
 No es una opción, no es una mejora que se puede aplicar a veces. Siempre se aplicará, porque lo hemos definido **explícitamente**
 
@@ -196,3 +209,7 @@ Pero es más fácil, que si programas en funcional preocupado por el rendimiento
 No le decimos al compilador, apáñatelas **si puedes**.
 
 Le decimos, esto es lo que quiero. Sintáctica y semánticamente es igual, pero en un caso sabemos lo que ocurrirá, y no nos podremos equivocar, el compilador nos vigila.
+
+Esta no es la base de Rust. El "borrowing" es probablemente más rompedor, pero eso para otro día.
+
+Y hay más opciones sobre este esquema. Devolver un tipo algebraico en el que una de las opciones puede ser el *mutado* y definir tipos *mutables opacos* y trabajar estilo *SSA* son dos ejemplos
