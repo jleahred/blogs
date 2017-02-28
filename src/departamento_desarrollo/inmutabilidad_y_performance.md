@@ -116,7 +116,7 @@ Otro detalle interesante, es que el propietario decide cómo es el tipo, no hay 
 
 Supongamos que hemos definido un tipo llamado "Expensive". Es caro copiarlo. Así que no le diremos que se puede clonar ni copiar (tacaños nos hemos puesto).
 
-Ahora creamos una instancia, que como no decimos nada, es... **INMUTABLE**
+Ahora declaramos una variable de tipo Expensive, que como no decimos nada, es... **INMUTABLE**
 
 ```Rust
 let prev_exp: Expensive;
