@@ -10,15 +10,15 @@ Los problemas son más fáciles de razonar. Es más difícil tener inconsistenci
 
 Además, es más fácil diseñar correctamente con esta restricción.
 
-La inmutabilidad conlleva copias, en ocasiones muchas copias.
+La inmutabilidad conlleva copias, en ocasiones muchas.
 
-Pero los compiladores son listos, muy listos y son capaces de remplazar una copia por cambio insitu (mutación) sin que el diseño y tu código expresen ni padezcan de mutaciones.
+Pero los compiladores son listos, muy listos, y son capaces de remplazar una copia por cambio insitu (mutación) sin que el diseño y tu código expresen ni padezcan de mutaciones.
 
 Esto es fantástico, ¡¡¡Qué más se puede pedir!!!
 
 Pues quizá sí, si el rendimiento te preocupa mucho, quizá te gustaría representar en el diseño que no quieres que se copie.
 
-Está bien que el compilador en muchos casos evite la copia. Está fenomenal que el programador tenga cuidado para evitar la copia, pero... ¿No sería chulo poder representar en el diseño esto?
+Está bien que el compilador en muchos casos evite la copia. Está fenomenal que el programador tenga cuidado para evitar la copia, pero... ¿No sería chulo poder representarlo en el diseño?
 
 De esta forma, evitaríamos que, sea por olvido, descuido o desconocimiento, hagamos una operación que no le permita al compilador modificar in-situ y zás!!!  haga una copia cara.
 
@@ -38,9 +38,9 @@ Generalmente la respuesta es "depende". Y depende de lo que contenga *b*.
 
 Algunos lenguajes lo explican de forma que parece una justificación de lo injustificable (no, no me has convencido con las "labels" Python, fíjate en sus horribles y sorprendentes consecuencias).
 
-Que los desarrolladores no sean conscientes tiene su lado positivo. Ese susto y pánico que se ahorran.
+Que los desarrolladores no sean conscientes, tiene su lado positivo. Ese susto y pánico que se ahorran.
 
-A costa claro, de los que sí lo saben, que tienen dos razones para morirse de miedo. Una el hecho de que el llamado te pueda modificar lo que le das.  (booooooo!!!!!). La otra razón para no dormir, está en que ven a compañeros que por pura inconsciencia y desconocimiento, te lo pueden modificar.
+A costa claro, de los que sí lo saben, que tienen dos razones para morirse de miedo. Una el hecho de que el llamado te pueda modificar lo que le das.  (buuuUUUUuuuuu!!!!!). La otra razón para no dormir, es que tengas compañeros que lo puedan modificar por inconcienca o desconocimiento.
 
 En C++ todo funciona por copia (bueno, muy recientemente se ha añadido la semántica de movimiento, eso para otro día). Pero ojo, hay valores, referencias y punteros. La copia de un puntero... no protege mucho contra la mutabilidad.
 
@@ -60,16 +60,16 @@ Esto limita mucho la utilización de *const* en C++
 
 Pero hay otro caso a considerar. Las referencias trajeron soluciones y nuevos problemas.
 
-Por un lado, son punteros, "copia" barata. Pero no tienen aritmética de punteros ni pueden estar sin inicializar (no es fácil y no se hará por error).
+Por un lado, son punteros, "copia" barata. No tienen aritmética de punteros ni pueden estar sin inicializar (no es fácil y no se hará por error).
 
 Podemos recibir parámetros por referencia, y gracias al **const** garantizamos que no se cambiarán.
 
 Esto es un patrón muy utilizado, pero...
 
-¿Qué sucede si el creador de la librería le quita el **const**?
+¿Qué sucede si el creador de la función le quita el **const**?
 Peligro!!!! Ahora nos puede cambiar el valor. ¿Y el compilador, que dice de todo esto? Nada!!!
 
-La característica del parámetro pasado la ha decidido el receptor.
+La característica del parámetro pasado, la ha decidido el receptor.
 Esto no es muy bueno. Pero tampoco terrible, no es un error fácil de cometer, pero es un error al fin y al cabo.
 
 C++ permite expresar la prohibición de copia en tipos que defines. Entonces tendrás que utilizar punteros, listos o tontos y la mutabilidad compartida (de lo más peligroso), será la forma de trabajo.
@@ -83,7 +83,7 @@ Y hay gente dice que la programación funcional es más difícil. "¿A dónde?"
 
 Bueno, podríamos aceptar que la programación imperativa es más fácil si el objetivo es hacer algo rápido y aprender en poco tiempo. Lo aceptamos si dejamos de lado que no sabes muy bien lo que haces y probablemente no funcionará correctamente. Lo aceptamos si hablamos código de sólo una escritura y no de lectura. Lo aceptamos si hablamos de código de usar y tirar. Detalles "pequeños".
 
-La mayoría de los imperativos dan más miedo que Fredy. C++ ayuda pero no soluciona. La programación funcional está genial, pero podemos caer sin darnos cuenta en costosas copias.
+La mayoría de los imperativos dan más miedo que Freddy Krugger. C++ ayuda pero no soluciona. La programación funcional está genial, pero podemos caer sin darnos cuenta en costosas copias.
 
 ## ¿Y Rust, que opina de esto?
 
@@ -91,15 +91,13 @@ Rust quiere competir en rendimiento con el más rápido.
 
 Al mismo tiempo quiere ser seguro y evitar toda una familia de errores muy comunes.
 
-Y además quiere ser seguro.
-
 Para ello, pretende que le digas qué quieres y el verificará que lo que estás haciendo, es consistente con dichas definiciones.
 
 Esto no es nuevo. Es una de las razones por las que tenemos sistemas de tipos, especialmente los estáticos.
 
-Entonces yo quiero decirle a Rust, esto no quiero que se copie porque es caro. Además quiero que sea inmutable porque es más fácil de razonar mantener y más difícil cometer errores.
+Entonces yo quiero decirle a Rust, esto no quiero que se copie (probablemente es es caro). Además quiero que sea inmutable porque es más fácil de razonar mantener y más difícil cometer errores.
 
-Ja!!!  ¿No estamos pidiendo cosas contradictorias?
+Uhmmmm!!!  ¿No estamos pidiendo cosas contradictorias?
 Quizá esta sea la razón por la que no se puede hacer en otros lenguajes a pesar de su gran experiencia.
 
 Pero le daremos una oportunidad. Para eso estamos aquí.
@@ -110,9 +108,9 @@ Además, si creas un tipo, por defecto no se puede copiar (como debe ser).
 
 Y como no podría ser de otra forma, aunque permitas que se pueda "clonar", el operador de asignación siempre moverá (a no ser que le indiques tú lo contrario).
 
-Pero claro, como dependiendo del tipo el operador de asignación puede significar copia o movimiento... me podría equivocar. Pero lenguaje permite instruir al compilador para que lo detecte y te avise con un cariñoso "no compilo" cuando te equivoques.
+Pero claro, como dependiendo del tipo el operador de asignación puede significar copia o movimiento... me podría equivocar. Pero lenguaje permite instruir al compilador para que lo detecte y te avise con un cariñoso "no compilo" en la gran mayoría de las equivocaciones.
 
-Otro detalle interesante, es que el propietario decide cómo es el tipo, no hay coherciones en este sentido que pueda aplicar el receptor y una opinión diferente de este le lleve a cambiarlo y esto  pase inadvertido para el llamante.
+Otro detalle interesante, es que el propietario decide cómo es el tipo, no hay coherciones en este sentido que pueda aplicar el receptor. No hay que preocuparse porque nos cambie un *const* por un *mut* y nos cambie algo que no podía hacer antes.
 
 Supongamos que hemos definido un tipo llamado "Expensive". Es caro copiarlo. Así que no le diremos que se puede clonar ni copiar (tacaños nos hemos puesto).
 
@@ -191,7 +189,7 @@ Y el compilador vigila para que no haya trampas. Ni llaves ocultas, ni compartir
 
 ```Rust
 fn push (mut exp: Expensive, v: Value) -> Expensive {
-    exp.mutate_with(value);
+    exp.mutate_with(v);
     exp.last_value = v;
     exp     // this is the return 
 }
@@ -208,8 +206,10 @@ Pero es más fácil, que si programas en funcional preocupado por el rendimiento
 
 No le decimos al compilador, apáñatelas **si puedes**.
 
-Le decimos, esto es lo que quiero. Sintáctica y semánticamente es igual, pero en un caso sabemos lo que ocurrirá, y no nos podremos equivocar, el compilador nos vigila.
+Todo lo contrario, le decimos al compilador... **vigila esto**
 
-Esta no es la base de Rust. El "borrowing" es probablemente más rompedor, pero eso para otro día.
+En Rust hay mucho más, empezando por el *borrowing* (para otro día).
 
 Y hay más opciones sobre este esquema. Devolver un tipo algebraico en el que una de las opciones puede ser el *mutado* y definir tipos *mutables opacos* y trabajar estilo *SSA* son dos ejemplos
+
+Y en Rust están investigando con *non lexical livetimes*. Parece que lleva muy buen camino. Esto permitiría hacer *SSA* incluso más fácil, entre otras cosas.
