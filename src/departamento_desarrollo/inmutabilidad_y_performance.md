@@ -208,8 +208,22 @@ No le decimos al compilador, apáñatelas **si puedes**.
 
 Todo lo contrario, le decimos al compilador... **vigila esto**
 
+Ahora puedes escribir...
+
+```Rust
+...
+let exp = push(exp, val1);
+let exp = push(exp, val2);
+let exp = push(exp, val3);
+...
+```
+
+Ninguno de los *exp* es mutable, pero internamente lo estamos mutando, con seguridad y buen rendimiento.
+
+Esto no está muy lejos de SSA.
+
 En Rust hay mucho más, empezando por el *borrowing* (para otro día).
 
-Y hay más opciones sobre este esquema. Devolver un tipo algebraico en el que una de las opciones puede ser el *mutado* y definir tipos *mutables opacos* y trabajar estilo *SSA* son dos ejemplos
+Y hay más opciones sobre este esquema. Devolver un tipo algebraico en el que una de las opciones puede ser el *mutado* y definir tipos *mutables opacos*. Si es opaco, no puedes cambiar su valor porque no tienes acceso, pero sí puedes reasignarlo.
 
-Y en Rust están investigando con *non lexical livetimes*. Parece que lleva muy buen camino. Esto permitiría hacer *SSA* incluso más fácil, entre otras cosas.
+Y en Rust están investigando con *non lexical livetimes*. Parece que lleva muy buen camino.
